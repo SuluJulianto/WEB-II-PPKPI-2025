@@ -1,0 +1,6 @@
+Dimas Andhika,78,90 
+Ipank Maulana,82,60 
+Yudi,70,50
+Nurwanto,80,45 
+Satiri,72,62 
+Sumanto,70,60 
