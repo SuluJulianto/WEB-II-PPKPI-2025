@@ -1,0 +1,11 @@
+div {
+    font-weight: bold;
+}
+
+span {
+    font-style: italic;
+}
+
+#welcome {
+    font-style: italic; color: blue;
+}
