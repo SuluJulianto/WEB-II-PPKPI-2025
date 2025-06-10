@@ -1,0 +1,52 @@
+Tanggal, Nama Alat Olahraga, Wilayah, Toko Penjual, Jumlah Terjual, Harga Satuan
+2023-04-01, Sepatu Lari, Jakarta, Toko Sport1, 5, 350000
+2023-04-01, Dumbbell, Bandung, Toko Fit, 8, 150000
+2023-04-01, Rak Sepeda, Surabaya, Toko Sepeda1, 3, 250000
+2023-04-02, Sepeda Gunung, Jakarta, Toko Sepeda2, 2, 4500000
+2023-04-02, Sepatu Lari, Surabaya, Toko Sport1, 10, 350000
+2023-04-02, Bola Basket, Yogyakarta, Toko Bola, 6, 120000
+2023-04-03, Dumbbell, Jakarta, Toko Fit, 7, 140000
+2023-04-03, Sepeda Gunung, Bandung, Toko Sepeda1, 4, 4000000
+2023-04-03, Rak Sepeda, Surabaya, Toko Sepeda1, 1, 250000
+2023-04-04, Bola Sepak, Jakarta, Toko Bola, 5, 100000
+2023-04-04, Sepatu Lari, Bandung, Toko Sport1, 3, 350000
+2023-04-04, Rak Sepeda, Yogyakarta, Toko Sepeda2, 2, 260000
+2023-04-05, Dumbbell, Surabaya, Toko Fit, 6, 160000
+2023-04-05, Sepeda Gunung, Jakarta, Toko Sepeda2, 1, 4500000
+2023-04-05, Bola Basket, Bandung, Toko Bola, 4, 130000
+2023-04-06, Sepatu Lari, Yogyakarta, Toko Sport1, 2, 350000
+2023-04-06, Dumbbell, Surabaya, Toko Fit, 8, 150000
+2023-04-06, Bola Sepak, Jakarta, Toko Bola, 6, 95000
+2023-04-07, Sepeda Gunung, Bandung, Toko Sepeda1, 3, 4200000
+2023-04-07, Rak Sepeda, Surabaya, Toko Sepeda1, 5, 250000
+2023-04-07, Sepatu Lari, Jakarta, Toko Sport1, 4, 350000
+2023-04-08, Bola Sepak, Yogyakarta, Toko Bola, 7, 110000
+2023-04-08, Sepeda Gunung, Surabaya, Toko Sepeda2, 2, 4500000
+2023-04-08, Dumbbell, Jakarta, Toko Fit, 5, 160000
+2023-04-09, Sepatu Lari, Bandung, Toko Sport1, 6, 340000
+2023-04-09, Sepeda Gunung, Yogyakarta, Toko Sepeda1, 3, 4300000
+2023-04-09, Bola Sepak, Jakarta, Toko Bola, 4, 100000
+2023-04-10, Dumbbell, Yogyakarta, Toko Fit, 3, 140000
+2023-04-10, Bola Basket, Surabaya, Toko Bola, 7, 120000
+2023-04-10, Rak Sepeda, Jakarta, Toko Sepeda2, 2, 260000
+2023-04-11, Sepeda Gunung, Jakarta, Toko Sepeda2, 5, 4500000
+2023-04-11, Sepatu Lari, Surabaya, Toko Sport1, 3, 350000
+2023-04-11, Bola Sepak, Bandung, Toko Bola, 6, 95000
+2023-04-12, Sepatu Lari, Yogyakarta, Toko Sport1, 8, 350000
+2023-04-12, Dumbbell, Jakarta, Toko Fit, 4, 150000
+2023-04-12, Sepeda Gunung, Bandung, Toko Sepeda1, 3, 4200000
+2023-04-13, Bola Sepak, Surabaya, Toko Bola, 6, 100000
+2023-04-13, Sepeda Gunung, Yogyakarta, Toko Sepeda2, 1, 4600000
+2023-04-13, Rak Sepeda, Jakarta, Toko Sepeda2, 2, 250000
+2023-04-14, Sepatu Lari, Bandung, Toko Sport1, 5, 350000
+2023-04-14, Dumbbell, Surabaya, Toko Fit, 9, 150000
+2023-04-14, Sepeda Gunung, Jakarta, Toko Sepeda2, 3, 4500000
+2023-04-15, Sepatu Lari, Yogyakarta, Toko Sport1, 6, 350000
+2023-04-15, Bola Sepak, Jakarta, Toko Bola, 8, 120000
+2023-04-15, Rak Sepeda, Surabaya, Toko Sepeda1, 4, 250000
+2023-04-16, Sepeda Gunung, Bandung, Toko Sepeda1, 5, 4300000
+2023-04-16, Sepatu Lari, Jakarta, Toko Sport1, 7, 350000
+2023-04-16, Bola Sepak, Yogyakarta, Toko Bola, 3, 100000
+2023-04-17, Bola Sepak, Surabaya, Toko Bola, 5, 95000
+2023-04-17, Dumbbell, Jakarta, Toko Fit, 4, 150000
+2023-04-17, Sepeda Gunung, Yogyakarta, Toko Sepeda1, 2, 4500000

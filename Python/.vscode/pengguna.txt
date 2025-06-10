@@ -1,0 +1,5 @@
+Suryo Handoyo,suryo,1234,1,1
+Vivi Susanti,vivi,1234,0,0
+Irvan Maulana,ipank,1234,0,0
+Dimas Andhika,dimas,1234,0,0
+Rakabuming,raka,1234,0,0
