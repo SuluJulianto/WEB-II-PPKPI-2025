@@ -1,0 +1,57 @@
+div {
+    font-weight: bold;
+}
+
+span {
+    font-style: italic;
+}
+
+#welcome {
+    font-style: italic; color: blue;
+}
+
+.welcome {
+    font-style: italic; color: blue;
+}
+
+.flex-container {
+    width: 150px;
+    height: 100px;
+    background-color: green;
+    margin: 10px;
+    border-style: solid;
+    text-align: center;
+    padding-top: 10px;
+    }
+
+    .border1 {
+    border-width: 1px;
+    }
+
+    .border2 {
+    border-width: 1px 5px;
+    }
+
+    .border3 {
+    border-width: 1px 5px 10px;
+    }
+
+    .border4 {
+    border-width: 1px 5px 10px 15px;
+    }
+
+    .borderManual {
+    border-bottom: 1px solid;
+    border-left: 5px solid;
+    border-top: 10px solid;
+    border-right: 15px solid;
+    }
+
+    .container {
+    display: flex;
+    flex-wrap: wrap;
+    }
+
+    .box-wrapper {
+    margin: 5px;
+    }
