@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Bintang Abadi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 30px;
+        }
+
+        .container {
+            width: 600px;
+            margin: auto;
+            border: 2px solid black;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .judul-box {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-box, .output-box {
+            width: 48%;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .form-group label {
+            width: 100px;
+            font-weight: bold;
+        }
+
+        .form-group select,
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 150px;
+            padding: 5px;
+        }
+
+        .output-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .output-group label {
+            font-weight: bold;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 6px 20px;
+            margin: 0 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="judul-box">Travel Bintang Abadi</div>
+
+    <div class="form-section">
+        <!-- INPUT -->
+        <div class="input-box">
+            <div class="form-group">
+                <label>Nama</label>
+                <input type="text" id="nama">
+            </div>
+            <div class="form-group">
+                <label>Tujuan</label>
+                <select id="tujuan">
+                    <option value="Jakarta">Jakarta</option>
+                    <option value="Cirebon">Cirebon</option>
+                    <option value="Tasikmalaya">Tasikmalaya</option>
+                    <option value="Bandung">Bandung</option>
+                    <option value="Semarang">Semarang</option>
+                    <option value="Jogja">Jogja</option>
+                    <option value="Solo">Solo</option>
+                    <option value="Madiun">Madiun</option>
+                    <option value="Surabaya">Surabaya</option>
+                    <option value="ketapang">Ketapang</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jumlah Tiket</label>
+                <input type="number" id="jumlahTiket" min="1">
+            </div>
+            <div class="form-group">
+                <label>Member</label>
+                <input type="checkbox" id="member"> Ya
+            </div>
+        </div>
+
+        <!-- OUTPUT -->
+        <div class="output-box">
+            <div class="output-group">
+                <label>Harga Tiket</label>
+                <span id="hargaTiket">-</span>
+            </div>
+            <div class="output-group">
+                <label>Sub Total</label>
+                <span id="subTotal">-</span>
+            </div>
+            <div class="output-group">
+                <label>Diskon</label>
+                <span id="diskon">-</span>
+            </div>
+            <div class="output-group">
+                <label>Total Bayar</label>
+                <span id="totalBayar">-</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOMBOL -->
+    <div class="button-group">
+        <button onclick="hitung()">Hitung</button>
+        <button onclick="resetForm()">Ulang</button>
+    </div>
+</div>
+
+<script>
+    function hitung() {
+        const nama = document.getElementById("nama").value.trim();
+        const tujuan = document.getElementById("tujuan").value;
+        const jumlah = parseInt(document.getElementById("jumlahTiket").value);
+        const isMember = document.getElementById("member").checked;
+
+        if (nama === "") {
+            alert("Nama harus diisi!");
+            return;
+        }
+
+        if (isNaN(jumlah) || jumlah < 1) {
+            alert("Jumlah tiket harus minimal 1!");
+            return;
+        }
+
+        let harga = 0;
+        switch (tujuan) {
+            case "Jakarta": harga = 100000; break;
+            case "Cirebon": harga = 150000; break;
+            case "Tasikmalaya": harga = 200000; break;
+            case "Bandung": harga = 125000; break;
+            case "Semarang": harga = 250000; break;
+            case "Jogja": harga = 300000; break;
+            case "Solo": harga = 320000; break;
+            case "Madiun": harga = 340000; break;
+            case "Surabaya": harga = 370000; break;
+            case "Ketapang": harga = 400000; break;
+        }
+
+        const subtotal = harga * jumlah;
+        const diskon = isMember ? 0.1 * subtotal : 0;
+        const totalBayar = subtotal - diskon;
+
+        document.getElementById("hargaTiket").textContent = "Rp " + harga.toLocaleString();
+        document.getElementById("subTotal").textContent = "Rp " + subtotal.toLocaleString();
+        document.getElementById("diskon").textContent = "Rp " + diskon.toLocaleString();
+        document.getElementById("totalBayar").textContent = "Rp " + totalBayar.toLocaleString();
+    }
+
+    function resetForm() {
+        document.getElementById("nama").value = "";
+        document.getElementById("tujuan").value = "Jakarta";
+        document.getElementById("jumlahTiket").value = "";
+        document.getElementById("member").checked = false;
+
+        document.getElementById("hargaTiket").textContent = "-";
+        document.getElementById("subTotal").textContent = "-";
+        document.getElementById("diskon").textContent = "-";
+        document.getElementById("totalBayar").textContent = "-";
+    }
+</script>
+
+</body>
+</html>
