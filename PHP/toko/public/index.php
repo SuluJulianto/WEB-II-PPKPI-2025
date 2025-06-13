@@ -2,7 +2,7 @@
     if (!isset($_SESSION)){
         session_start();
     }
-if (isset($_SESSION["dir_diskon"])){
+if (!isset($_SESSION["dir_root"])){
     require_once 'boostrap.php';
 }
 
