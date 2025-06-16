@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login dengan Password</title>
+    <script type="text/javascript">
+        function pass() {
+            var coba = 1;
+            var p;
+
+            do {
+                p = prompt("Tuliskan password dengan benar:", "");
+
+                if (p === "ppkpi") {
+                    alert("Hello World!");
+                    window.open("Perhitungan-Bunga.html");
+                    break;
+                } else {
+                    alert("Password Salah !!! Ulangi lagi..");
+                    coba++;
+                    if (coba > 3) {
+                        alert("Maaf, kesempatan anda hanya 3 kali");
+                        history.go(-1);
+                        break;
+                    }
+                }
+            } while (coba <= 3);
+        }
+    </script>
+</head>
+<body>
+    <form method="post">
+        <input type="button" value="Password" onclick="pass()">
+    </form>
+</body>
+</html>
