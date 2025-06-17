@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animasi Bolak-Balik</title>
+    <style>
+        #container {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: yellow;
+            overflow: hidden;
+        }
+
+        #animate {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<p>
+    Jumlah bolak-balik:
+    <input type="number" id="repeatCount" value="2" min="1">
+    Arah gerak:
+    <select id="direction">
+        <option value="right-down">Kanan Bawah</option>
+        <option value="left-down">Kiri Bawah</option>
+        <option value="right-up">Kanan Atas</option>
+        <option value="left-up">Kiri Atas</option>
+    </select>
+    <input type="button" onclick="play()" value="Play">
+</p>
+
+<div id="container">
+    <div id="animate"></div>
+</div>
+
+<script>
+let animationId = null;
+
+function play() {
+    if (animationId) {
+        clearInterval(animationId);
+    }
+
+    const elem = document.getElementById("animate");
+    const direction = document.getElementById("direction").value;
+    const containerSize = 400;
+    const boxSize = 50;
+
+    let repeat = 0;
+    const maxRepeat = parseInt(document.getElementById("repeatCount").value) || 1;
+
+    // Set posisi awal
+    let posX = (direction.includes("left")) ? containerSize - boxSize : 0;
+    let posY = (direction.includes("up")) ? containerSize - boxSize : 0;
+
+    // Arah gerakan awal
+    let deltaX = (direction.includes("left")) ? -1 : 1;
+    let deltaY = (direction.includes("up")) ? -1 : 1;
+
+    elem.style.left = posX + "px";
+    elem.style.top = posY + "px";
+
+    animationId = setInterval(frame, 5);
+
+    function frame() {
+
+        posX += deltaX;
+        posY += deltaY;
+
+
+        let hitEdge = false;
+        if (posX <= 0 || posX >= containerSize - boxSize) {
+            deltaX *= -1;
+            hitEdge = true;
+        }
+        if (posY <= 0 || posY >= containerSize - boxSize) {
+            deltaY *= -1;
+            hitEdge = true;
+        }
+
+        if (hitEdge) {
+            repeat++;
+            if (repeat >= maxRepeat * 2) {
+                clearInterval(animationId);
+                animationId = null;
+                return;
+            }
+        }
+
+        elem.style.left = posX + "px";
+        elem.style.top = posY + "px";
+    }
+}
+</script>
+
+</body>
+</html>

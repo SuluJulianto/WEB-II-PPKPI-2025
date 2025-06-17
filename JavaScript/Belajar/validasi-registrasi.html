@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Registrasi Event</title>
+<style>
+    body {
+        background-color: grey;
+        color: #000000;
+        font-family: Verdana;
+        font-size: 12px;
+    }
+
+    #main_content {
+        width: 50%;
+        margin: auto;
+    }
+
+    .form_box {
+        border: solid 1px #000000;
+        background-color: #FFFFFF;
+        height: 550px;
+        margin: 50px 0 0;
+    }
+
+    .form_title {
+        border: solid 1px #000000;
+        background-color: #000000;
+        color: #FFFFFF;
+        height: 32px;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 11px;
+    }
+
+    .form_content {
+        width: 90%;
+        margin: auto;
+    }
+
+    .form_label {
+        width: 75px;
+        margin: 20px 0 0;
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .form_label_horizontal {
+        width: 300px;
+        margin: 20px 0 0;
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .form_textbox_short {
+        width: 200px;
+        height: 30px;
+        background-color: #dadada;
+        border: solid 1px #bebebe;
+        border-radius: 4px;
+        margin-left: 23px;
+    }
+
+    .form_textbox {
+        width: 438px;
+        height: 30px;
+        background-color: #dadada;
+        border: solid 1px #bebebe;
+        border-radius: 4px;
+        margin-left: 23px;
+    }
+
+    .form_radio_horizontal {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        }
+
+    .form_radio_horizontal li {
+        display: inline;
+        margin-right: 30px;
+    }
+
+    .form_button_red {
+        color: #FFFFFF;
+        background-color: #f55353;
+        border: solid 1px #ff4343;
+        padding: 10px 30px 10px 30px;
+        border-radius: 5px;
+    }
+
+    .separator {
+        clear: both;
+        margin: 25px 0 25px 0;
+    }
+</style>
+</head>
+
+<body>
+<div id="main_content">
+    <div class="form_box">
+        <div class="form_title">
+        EVENT REGISTRATION FORM
+    </div>
+
+    <div class="form_content">
+        <form method="GET" id="form1">
+            <div class="separator"></div>
+
+            <label class="form_label">Name</label>
+            <input type="text" id="first_name" name="first_name" class="form_textbox_short">
+            <input type="text" id="last_name" name="last_name" class="form_textbox_short">
+            <div class="separator"></div>
+
+            <label class="form_label">Company</label>
+            <input type="text" id="company" name="company" class="form_textbox">
+            <div class="separator"></div>
+
+            <label class="form_label">Email</label>
+            <input type="text" id="email" name="email" class="form_textbox">
+            <div class="separator"></div>
+
+            <label class="form_label">Phone</label>
+            <input type="text" id="area_code" name="area_code" class="form_textbox_short">
+            <input type="text" id="phone_number" name="phone_number" class="form_textbox_short">
+            <div class="separator"></div>
+
+            <label class="form_label">Subject</label>
+            <select id="subject" name="subject" class="form_textbox">
+                <option value="">Choose Option</option>
+                <option value="1">Subject 1</option>
+                <option value="2">Subject 2</option>
+            </select>
+            <div class="separator"></div>
+
+            <label class="form_label_horizontal">Are you an existing customer?</label>
+            <ul class="form_radio_horizontal">
+                <li>
+                <input type="radio" name="is_existing" value="yes" checked>
+                <span class="item_text">Yes</span>
+                </li>
+                <li>
+                <input type="radio" name="is_existing" value="no">
+                <span class="item_text">No</span>
+                </li>
+            </ul>
+            <div class="separator"></div>
+
+            <input type="button" value="REGISTER" onclick="register()" class="form_button_red">
+            </form>
+        </div>
+        </div>
+    </div>
+
+<script>
+    function register() {
+        var first_name = document.getElementById("first_name");
+        var last_name = document.getElementById("last_name");
+        var company = document.getElementById("company");
+        var email = document.getElementById("email");
+        var area_code = document.getElementById("area_code");
+        var phone_number = document.getElementById("phone_number");
+        var subject = document.getElementById("subject");
+        var is_existing = document.querySelector('input[name="is_existing"]:checked');
+
+        if (first_name.value === "") {
+            alert("First name is required.");
+            first_name.focus();
+        } else if (last_name.value === "") {
+            alert("Last name is required.");
+            last_name.focus();
+        } else if (company.value === "") {
+            alert("Company is required.");
+            company.focus();
+        } else if (email.value === "") {
+            alert("Email is required.");
+            email.focus();
+        } else if (area_code.value === "") {
+            alert("Area code is required.");
+            area_code.focus();
+        } else if (phone_number.value === "") {
+            alert("Phone number is required.");
+            phone_number.focus();
+        } else if (subject.value === "") {
+            alert("Subject is required.");
+            subject.focus();
+        } else {
+            let subjectText = subject.options[subject.selectedIndex].text;
+            let customerStatus = is_existing.value === "yes" ? "existing customer" : "new customer";
+            alert("Registration successful!\nSubject: " + subjectText + "\nYou are an " + customerStatus + ".");
+            document.getElementById("form1").submit();
+        }
+    }
+</script>
+</body>
+</html>
