@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waktu Sekarang</title>
+</head>
+<body>
+
+<div id="info-waktu"></div>
+<div id="salam-marquee">
+    <marquee id="marquee-text"><h2></h2></marquee>
+</div>
+
+<script type="text/javascript">
+var hari = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+var bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+// Fungsi untuk mendapatkan salam sesuai jam
+function getSalam(jam, menit) {
+    if ((jam === 0 && menit >= 1) || (jam > 0 && jam < 12)) {
+        return "Selamat Pagi";
+    } else if (jam === 12 || (jam > 12 && jam < 16)) {
+        return "Selamat Siang";
+    } else if (jam >= 16 && jam < 19) {
+        return "Selamat Sore";
+    } else {
+        return "Selamat Malam";
+    }
+}
+
+// Set salam hanya sekali
+(function setSalamSekali() {
+    var t = new Date();
+    var salam = getSalam(t.getHours(), t.getMinutes());
+    document.getElementById("marquee-text").innerHTML = "<h2>" + salam + "!</h2>";
+})();
+
+// Perbarui waktu setiap detik
+function updateWaktu() {
+    var t = new Date();
+    var hari_ini = hari[t.getDay() === 0 ? 6 : t.getDay() - 1];
+    var tanggal = t.getDate();
+    var bulan_ini = bulan[t.getMonth()];
+    var tahun = t.getFullYear();
+    var jam = t.getHours();
+    var menit = t.getMinutes();
+    var detik = t.getSeconds();
+
+    document.getElementById("info-waktu").innerHTML = 
+        "<font size='5' face='arial'><b><center>Sekarang adalah hari : " + hari_ini + 
+        ", tanggal : " + tanggal + " " + bulan_ini + " " + tahun + "</center></b><hr width='700'></font>" +
+        "<font size='3' face='arial'><b><center>Jam sekarang = " + 
+        (jam < 10 ? "0" + jam : jam) + ":" + 
+        (menit < 10 ? "0" + menit : menit) + ":" + 
+        (detik < 10 ? "0" + detik : detik) + "</center></b></font>";
+}
+
+setInterval(updateWaktu, 1000);
+updateWaktu();
+</script>
+
+</body>
+</html>
