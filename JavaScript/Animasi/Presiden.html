@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animasi</title>
+<style>
+    * {
+    box-sizing: border-box white;
+    }
+
+    body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    }
+
+    .scene {
+    border: 1px solid #CCC;
+    margin: 40px auto;
+    position: relative;
+    width: 210px;
+    height: 260px;
+    perspective: 1000px;
+}
+    .carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translateZ(-288px);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+    .carousel__cell {
+    position: absolute;
+    width: 140px;
+    height: 200px;
+    left: 10px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #222;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+    .carousel__cell a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+    .carousel__cell img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    display: block;
+    }
+
+    .caption {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 5px;
+    }
+
+    .carousel__cell:nth-child(1) {
+        transform: rotateY(0deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(2) {
+        transform: rotateY(40deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(3) {
+        transform: rotateY(80deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(4) {
+        transform: rotateY(120deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(5) {
+        transform: rotateY(160deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(6) {
+        transform: rotateY(200deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(7) {
+        transform: rotateY(240deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(8) {
+        transform: rotateY(280deg) translateZ(288px);
+    }
+    .carousel__cell:nth-child(9) {
+        transform: rotateY(320deg) translateZ(288px);
+    }
+</style>
+</head>
+<body>
+
+<div class="scene">
+    <div class="carousel">
+        <div class="carousel__cell">
+            <a href="tan-malaka.html">
+                <img src="Tan-Malaka.jpg" alt="Tan Malaka">
+                <p class="caption">Tan Malaka</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="soekarno.html">
+                <img src="soekarno.jpg" alt="Soekarno">
+                <p class="caption">Soekarno</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="soeharto.html">
+                <img src="soeharto.jpg" alt="Soeharto">
+                <p class="caption">Soeharto</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="habibie.html">
+                <img src="Habibie.jpg" alt="B.J. Habibie">
+                <p class="caption">B.J. Habibie</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="gusdur.html">
+                <img src="gusdur.jpg" alt="Abdurrahman Wahid">
+                <p class="caption">Abdurrahman Wahid</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="megawati.html">
+                <img src="mega.png" alt="Megawati">
+                <p class="caption">Megawati Soekarnoputri</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="sby.html">
+                <img src="SBY.jpeg" alt="SBY">
+                <p class="caption">Susilo Bambang Yudhoyono</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="jokowi.html">
+                <img src="jokowi.jpeg" alt="Jokowi">
+                <p class="caption">Joko Widodo</p>
+            </a>
+        </div>
+        <div class="carousel__cell">
+            <a href="prabowo.html">
+                <img src="Prabowo.jpeg" alt="Prabowo">
+                <p class="caption">Prabowo Subianto</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<p style="text-align: center; margin-top: 100px;">
+    <button class="previous-button">Previous</button>
+    <button class="next-button">Next</button>
+</p>
+
+<script>
+    var carousel = document.querySelector('.carousel');
+    var cellCount = 9;
+    var selectedIndex = 0;
+
+    function rotateCarousel() {
+        var angle = selectedIndex / cellCount * -360;
+        carousel.style.transform = 'translateZ(-288px) rotateY(' + angle + 'deg)';
+    }
+
+    var prevButton = document.querySelector('.previous-button');
+    prevButton.addEventListener('click', function () {
+        selectedIndex--;
+        rotateCarousel();
+    });
+
+    var nextButton = document.querySelector('.next-button');
+    nextButton.addEventListener('click', function () {
+        selectedIndex++;
+        rotateCarousel();
+    });
+</script>
+
+</body>
+</html>
