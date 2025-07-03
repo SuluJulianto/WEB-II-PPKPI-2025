@@ -49,18 +49,6 @@ Technologies and concepts covered:
 
 ---
 
-## 📂 Folder Structure
-
-├── HTML & CSS
-├── JavaScript
-├── PHP/toko
-├── Python
-├── SQL
-└── README.md
-
-
----
-
 ## 🚀 About PPKPI
 
 **PPKPI Jakarta** (Pusat Pelatihan Kerja Pengembangan Industri) is a government-supported training institution under the Department of Manpower and Transmigration of Jakarta. Its mission is to prepare job-ready professionals through certified, industry-aligned training programs.
