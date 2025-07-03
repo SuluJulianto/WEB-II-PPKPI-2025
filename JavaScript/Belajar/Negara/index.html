@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cari Nama Negara</title>
+  <script src="jquery-3.7.1.js"></script>
+  <style>
+    #hasil {
+      margin-top: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 300px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Cari Nama Negara</h3>
+<input type="text" id="kata" placeholder="Ketik nama negara...">
+<div id="hasil"></div>
+
+<script>
+  $(document).ready(function () {
+    $("#kata").on("keyup", function () {
+      let kata = $(this).val();
+      if (kata.length > 0) {
+        $.ajax({
+          type: "POST",
+          url: "cari.php",
+          data: { q: kata },
+          success: function (res) {
+            $("#hasil").html(res);
+          }
+        });
+      } else {
+        $("#hasil").html(""); // kosongkan jika input kosong
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
