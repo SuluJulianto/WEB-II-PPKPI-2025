@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Warna-Warni dengan Reset</title>
+    <script src="jquery-3.7.1.js"></script>
+
+    <style>
+        .warna1 { color: red; }
+        .warna2 { color: blue; }
+        .warna3 { color: orange; }
+        .warna4 { color: green; }
+        .warna5 { color: purple; }
+
+        p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-right: 10px;
+            padding: 5px 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Belajar jQuery Warna-Warni</h2>
+
+    <!-- Teks biasa -->
+    <p class="teks">Tulisan paragraf satu</p>
+    <p class="teks">Tulisan paragraf dua</p>
+    <p class="teks">Tulisan paragraf ketiga</p>
+    <p class="teks">Tulisan paragraf keempat</p>
+    <p class="teks">Tulisan paragraf kelima</p>
+
+    <!-- Tombol Aksi -->
+    <button id="btnAction">Action</button>
+    <button id="btnReset">Reset</button>
+
+    <script>
+        $(document).ready(function() {
+            // Tombol Action
+            $("#btnAction").click(function() {
+                $(".teks").each(function(i) {
+                    // Hapus warna lama
+                    $(this).removeClass("warna1 warna2 warna3 warna4 warna5");
+
+                    // Tambahkan warna baru
+                    let warna = (i % 5) + 1;
+                    $(this).addClass("warna" + warna);
+                });
+            });
+
+            // Tombol Reset
+            $("#btnReset").click(function() {
+                $(".teks").removeClass("warna1 warna2 warna3 warna4 warna5");
+            });
+        });
+    </script>
+
+</body>
+</html>
