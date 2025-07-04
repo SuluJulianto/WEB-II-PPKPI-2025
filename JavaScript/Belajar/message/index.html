@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pesan</title>
+    <style>
+        .pesan-item {
+            margin-bottom: 10px;
+        }
+        .header {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        .time {
+            font-size: 12px;
+            color: #666;
+            margin-left: 10px;
+        }
+        .text {
+            margin-left: 10px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Daftar Pesan</h2>
+    <div id="pesan"></div>
+
+    <script>
+        fetch('getMessages.php')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('pesan');
+                data.messages.pesan.forEach(pesan => {
+                    const div = document.createElement('div');
+                    div.className = 'pesan-item';
+                    div.innerHTML = `
+                        <div class="header">${pesan.user}<span class="time">${pesan.time}</span></div>
+                        <div class="text">${pesan.text}</div>
+                    `;
+                    container.appendChild(div);
+                });
+            })
+            .catch(err => {
+                document.getElementById('pesan').innerText = 'Gagal memuat pesan.';
+                console.error(err);
+            });
+    </script>
+</body>
+</html>
