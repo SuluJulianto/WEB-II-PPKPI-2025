@@ -3,25 +3,24 @@
         session_start();
     }
     if(!isset($_SESSION["site_root"])) {
-    require_once 'bootstrap.php';
+        // Jika session belum ada, panggil bootstrap
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/toko/public/bootstrap.php';
     }
     $site_root = $_SESSION["site_root"];
 
     require_once $_SESSION["dir_root"] . '/module/dbconnect.php';
     
+    // Ambil ID dari URL, default 0 jika tidak ada
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    $salesData = null; // Inisialisasi data penjualan
 
-    $id = isset($_GET['id']) ? $_GET['id'] : 0;
-    $sales = [];
-    if ($id > 0){
-        $stmt = db()->prepare("SELECT * FROM sales WHERE id = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-        $sales = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-
+    if ($id > 0) {
+        // Jika ada ID, ambil data dari database
+        // Kita akan menggunakan AJAX untuk memuat data, jadi PHP di sini hanya untuk struktur
     }
-$productList = db()->query("SELECT * FROM product")->fetchAll(PDO::FETCH_ASSOC);
-$customerList = db()->query("SELECT * FROM customer")->fetchAll(PDO::FETCH_ASSOC);
+
+    $productList = db()->query("SELECT * FROM product ORDER BY product ASC")->fetchAll(PDO::FETCH_ASSOC);
+    $customerList = db()->query("SELECT * FROM customer ORDER BY customer ASC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -30,147 +29,115 @@ $customerList = db()->query("SELECT * FROM customer")->fetchAll(PDO::FETCH_ASSOC
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD SALES</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <title><?= $id > 0 ? 'Edit' : 'Tambah' ?> Penjualan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
-    const base_url = "<?=$site_root?>";
-    const productData = <?= json_encode($productList)?>;
+        const base_url = "<?= $site_root ?>";
+        const productData = <?= json_encode($productList) ?>;
+        const salesId = <?= $id ?>; // Kirim ID penjualan ke JavaScript
     </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-    </script>
-   <script src="https://cdn.jsdelivr.net/npm/litepicker@2.0.12/dist/litepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker@2.0.12/dist/litepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-    .row_line {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 5px;
-    }
-
-    #quantity {
-        text-align: right;
-    }
-
-    .row_line input,
-    .row_line select {
-        padding: 5px;
-    }
+        .header-row, .row_line { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        .header-row span { font-weight: bold; flex: 1; text-align: center; }
+        .readonly { background-color: #e9ecef; }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <form id="salesForm" method="post" enctype="multipart/form-data">
-            <input hidden name="id" id="id" value="<?= $sales['id'] ?? '' ?>">
+    <div class="container mt-4">
+        <h3><?= $id > 0 ? 'Edit' : 'Tambah' ?> Penjualan</h3>
+        <form id="salesForm" method="post">
+            <input type="hidden" name="id" id="id" value="<?= $id ?>">
             
-            <!--header-->
-            <fieldset id="header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-text w-25">Tanggal</span>
-                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" name="sales_date"
-                                id="sales_date" value="<?= $sales['sales_date'] ?? '' ?>">
-                        </div>
-                    </div>
+            <fieldset id="header" class="border p-3 mb-3">
+                <legend class="w-auto px-2">Header</legend>
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="width: 120px;">Tanggal</span>
+                    <input type="text" class="form-control" placeholder="DD-MM-YYYY" name="sales_date" id="sales_date">
                 </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-text w-25">Customer</span>
-                            <select name="customer" id="customer" class="form-select">
-                                <option value="Pilih Customer"></option>
-                                <?php foreach ($customerList as $cust): ?>
-                                <option value="<?= $cust['id']?>">
-                                    <?= $cust['customer'] ?>
-                                    <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
+                <div class="input-group">
+                    <span class="input-group-text" style="width: 120px;">Customer</span>
+                    <select name="customer" id="customer" class="form-select">
+                        <option value="">Pilih Customer</option>
+                        <?php foreach ($customerList as $cust): ?>
+                            <option value="<?= $cust['id'] ?>"><?= $cust['customer'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
             </fieldset>
-            <div>
 
-                <!--DETAIL-->
-                <fieldset id="detail">
-                    <div class="header-row">
-                        <span>Produk</span>
-                        <span>Deskripsi</span>
-                        <span>Harga</span>
-                        <span>UOM</span>
-                        <span>Qty</span>
-                        <span>Total</span>
-                    </div>
-                    <div id="detail"></div>
-                </fieldset>
-
-
-                <div class="sumary">
-
-                    Sub Total: <span id="subtotal_value">0</span><br>
-                    Diskon %: <input type="number" id="discount_percent" value="0"><br>
-                    Diskon (Rp): <span id="discount_value">0</span><br>
-                    Pajak 10%: <span id="tax_value">0</span><br>    
-                    Total Bayar: <span id="grand_total">0</span><br>
+            <fieldset id="detail_section" class="border p-3 mb-3">
+                <legend class="w-auto px-2">Detail Produk</legend>
+                <div class="header-row d-none d-md-flex">
+                    <span style="flex: 3;">Produk</span>
+                    <span style="flex: 2;">SKU</span>
+                    <span style="flex: 1.5;">Harga</span>
+                    <span style="flex: 1;">UOM</span>
+                    <span style="flex: 1;">Qty</span>
+                    <span style="flex: 1.5;">Total</span>
+                    <span style="width: 40px;"></span>
                 </div>
-                
-                </fieldset>
+                <div id="detail_container"></div>
+            </fieldset>
 
-                        <div>
-                            <button id="btn_preview" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#printPreview">Preview</button>
-                            <button id="btn_save" class="btn btn-primary">Save</button>
-                            <button id="btn_cancel" class="btn btn-secondary">Cancel</button>
-                        </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-6">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Sub Total</th>
+                                <td class="text-end" id="subtotal_value">0</td>
+                            </tr>
+                            <tr>
+                                <th>Diskon (%)</th>
+                                <td class="d-flex justify-content-end">
+                                    <input type="number" id="discount_percent" class="form-control" style="width: 80px;" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Diskon (Rp)</th>
+                                <td class="text-end" id="discount_value">0</td>
+                            </tr>
+                            <tr>
+                                <th>Pajak (11%)</th>
+                                <td class="text-end" id="tax_value">0</td>
+                            </tr>
+                            <tr>
+                                <th>Total Bayar</th>
+                                <td class="text-end h5" id="grand_total">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-end mt-3">
+                <button type="button" id="btn_preview" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#printPreview">
+                    <i class="fas fa-eye"></i> Preview
+                </button>
+                <button type="submit" id="btn_save" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan
+                </button>
+                <a href="<?= $site_root ?>/public/pageSales.php" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Batal
+                </a>
+            </div>
         </form>
     </div>
+
     <div class="modal fade" id="printPreview" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>print priview</h5>
+                    <h5 class="modal-title">Print Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <div id="print_preview">
-                     <h5>Nota Penjualan</h5><br>
-                     <p><strong>Tanggal :</strong> <span id="preview_date"></span></br>
-                        <strong>Customer :</strong> <span id="preview_customer"></span></br> 
-                    </p>
-                    <table class="table table-bordered">
-                       <thead>
-                           <tr>
-                                <th>Produk</th>
-                                <th>Deskripsi</th>
-                                <th>Harga</th>
-                                <th>UOM</th>
-                                <th>Jumlah</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead> 
-                        <tbody id="preview_detail"></tbody>
-                        <tfoot>
-                             <tr>       
-                                <th colspan="4">Sub Total</th>
-                                <td id="preview_subtotal" class="text-end"></td>
-                            <tr>
-                             <tr>       
-                                <th colspan="4">Diskon</th>
-                                <td id="preview_discount" class="text-end"></td>
-                            <tr>
-                            <tr>       
-                                <th colspan="4">Pajak 10 %</th>
-                                <td id="preview_tax" class="text-end"></td>
-                            <tr> 
-                            <tr>       
-                                <th colspan="4">Toral Bayar</th>
-                                <td id="preview_grandtotal" class="text-end"></td>
-                            <tr>          
-                        </tfoot>        
-                    </table>
-                </div>
-                <!-- ... kode sebelumnya tetap sama sampai bagian modal ... -->
+                <div class="modal-body" id="print_area">
+                    </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     <button type="button" class="btn btn-primary" onclick="window.print()">Cetak</button>

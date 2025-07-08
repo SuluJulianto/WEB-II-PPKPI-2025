@@ -21,6 +21,7 @@ $site_root = $_SESSION["site_root"];
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -30,48 +31,49 @@ $site_root = $_SESSION["site_root"];
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mt-4">
+        <h3 class="mb-3">Daftar Penjualan</h3>
+        <div class="row mb-3">
+            <div class="col-md-12 text-end">
+                <a href="<?= $site_root ?>/pageCRUD/crudSales.php" id="btn_add_sales" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Tambah Sales
+                </a>
+            </div>
+        </div>
         <div class="row">
-            <table>
-                <thead>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
                     <tr>
                         <th>Tanggal</th>
-                        <th>Costumer</th>
-                        <th>Sales (Rp)</th>
+                        <th>Customer</th>
+                        <th class="text-end">Total Sales (Rp)</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="salesheader"></tbody>
             </table>
         </div>
-        <div class="row flex">
-            <div class="col-8 flex">
-                <button id="btn_prev" class=" btn btn-outline-primary">
-                    << Prev</button>
-                        <button id="btn_next" class="btn btn-outline-primary">>> Next</button>
-            </div>
-            <div class="col-3">
-                <a href="<?= $site_root ?>/pageCRUD/crudSales.php?id=3" class="btn btn-outline-primary">Add
-                    Sales</a></button>
-            </div>
-        </div>
+        
+        <hr>
+
+        <h4 class="mt-4">Detail Penjualan</h4>
         <div class="row">
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>SKU</th>
                         <th>PRODUK</th>
-                        <th>HARGA</th>
-                        <th>JUMLAH</th>
+                        <th class="text-end">HARGA</th>
+                        <th class="text-end">JUMLAH</th>
                         <th>UOM</th>
-                        <th>TOTAL</th>
+                        <th class="text-end">TOTAL</th>
                     </tr>
                 </thead>
                 <tbody id="salesdetail"></tbody>
             </table>
-            <pre>
-    <?= $site_root?>
-    </pre>
-            <script src="<?= $site_root?>/JS/setSales.js"></script>
+        </div>
+    </div>
+    <script src="<?= $site_root?>/JS/setSales.js"></script>
 </body>
 
 </html>
