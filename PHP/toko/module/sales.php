@@ -20,12 +20,17 @@ switch ($action) {
     case 'updateData':
         $result = updateData();
         break;
+    // Tambahkan case baru untuk delete
+    case 'deleteData':
+        $result = deleteData();
+        break;
 }
 
 header('Content-Type: application/json');
 echo json_encode($result);
 die();
 
+// ... (fungsi readData, queryData, getSalesData, updateData tetap sama) ...
 function readData() {
     $sql = "SELECT s.id, s.sales_date, c.customer, 
                    (SELECT SUM(sd.price * sd.qty) FROM sales_detail sd WHERE sd.id_sales = s.id) as total
@@ -85,13 +90,11 @@ function updateData() {
     try {
         db()->beginTransaction();
 
-        if ($id > 0) { // Mode Update
-            // Hapus 'discount_percent' dari kueri UPDATE
+        if ($id > 0) {
             $sql = "UPDATE sales SET id_customer = :customer, sales_date = :sales_date WHERE id = :id";
             $stmt = db()->prepare($sql);
             $stmt->bindParam(':id', $id);
-        } else { // Mode Create
-            // Hapus 'discount_percent' dari kueri INSERT
+        } else {
             $sql = "INSERT INTO sales (id_customer, sales_date) VALUES (:customer, :sales_date)";
             $stmt = db()->prepare($sql);
         }
@@ -126,5 +129,38 @@ function updateData() {
     } catch (Exception $e) {
         db()->rollBack();
         return ["response" => 0, "data" => $e->getMessage()];
+    }
+}
+
+
+/**
+ * Fungsi baru untuk menghapus data penjualan.
+ */
+function deleteData() {
+    $sales_id = (int) filter_input(INPUT_POST, 'sales_id', FILTER_SANITIZE_NUMBER_INT);
+
+    if ($sales_id <= 0) {
+        return ["response" => 0, "data" => "ID Penjualan tidak valid."];
+    }
+
+    try {
+        db()->beginTransaction();
+
+        // Langkah 1: Hapus semua baris detail yang terkait dengan id_sales
+        $stmtDetail = db()->prepare("DELETE FROM sales_detail WHERE id_sales = :id_sales");
+        $stmtDetail->bindParam(':id_sales', $sales_id, PDO::PARAM_INT);
+        $stmtDetail->execute();
+        
+        // Langkah 2: Hapus data header penjualan
+        $stmtHeader = db()->prepare("DELETE FROM sales WHERE id = :id");
+        $stmtHeader->bindParam(':id', $sales_id, PDO::PARAM_INT);
+        $stmtHeader->execute();
+
+        db()->commit();
+        return ["response" => 1, "data" => "Data berhasil dihapus."];
+
+    } catch (Exception $e) {
+        db()->rollBack();
+        return ["response" => 0, "data" => "Gagal menghapus data: " . $e->getMessage()];
     }
 }

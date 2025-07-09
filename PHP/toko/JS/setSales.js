@@ -57,9 +57,48 @@ $(document).ready(function () {
 
   // Event listener untuk tombol edit
   $("#salesheader").on("click", ".btn_edit", function (e) {
-    e.stopPropagation(); // Mencegah event klik pada baris
+    e.stopPropagation();
     const salesId = $(this).data("id");
     window.location.href = `${base_url}/pageCRUD/crudSales.php?id=${salesId}`;
+  });
+
+  // Event listener untuk tombol delete BARU
+  $("#salesheader").on("click", ".btn_delete", function (e) {
+    e.stopPropagation(); // Mencegah klik pada baris terpicu
+    
+    const button = $(this);
+    const salesId = button.data("id");
+    
+    // Tampilkan konfirmasi sebelum menghapus
+    if (confirm("Apakah Anda yakin ingin menghapus data penjualan ini? Tindakan ini tidak dapat dibatalkan.")) {
+      $.ajax({
+        url: `${base_url}/module/sales.php`,
+        method: "POST",
+        dataType: "json",
+        data: {
+          action: "deleteData",
+          sales_id: salesId
+        },
+        success: function(response) {
+          if (response.response === 1) {
+            alert("Data berhasil dihapus.");
+            // Hapus baris dari tabel tanpa memuat ulang halaman
+            button.closest("tr").fadeOut(500, function() {
+              $(this).remove();
+              // Kosongkan detail jika yang dihapus adalah yang sedang aktif
+              if (button.closest("tr").hasClass("table-active")) {
+                  $("#salesdetail").html("");
+              }
+            });
+          } else {
+            alert("Gagal menghapus data: " + response.data);
+          }
+        },
+        error: function() {
+          alert("Terjadi kesalahan saat menghubungi server.");
+        }
+      });
+    }
   });
 
 });
@@ -87,6 +126,9 @@ function readsales() {
                       <td class="text-center">
                         <button class="btn btn-sm btn-warning btn_edit" data-id="${item.id}">
                           <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger btn_delete" data-id="${item.id}">
+                          <i class="fas fa-trash"></i> Delete
                         </button>
                       </td>
                    </tr>`;
