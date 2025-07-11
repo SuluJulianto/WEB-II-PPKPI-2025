@@ -3,21 +3,13 @@
         session_start();
     }
     if(!isset($_SESSION["site_root"])) {
-        // Jika session belum ada, panggil bootstrap
         require_once $_SERVER['DOCUMENT_ROOT'] . '/toko/public/bootstrap.php';
     }
     $site_root = $_SESSION["site_root"];
 
     require_once $_SESSION["dir_root"] . '/module/dbconnect.php';
     
-    // Ambil ID dari URL, default 0 jika tidak ada
     $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    $salesData = null; // Inisialisasi data penjualan
-
-    if ($id > 0) {
-        // Jika ada ID, ambil data dari database
-        // Kita akan menggunakan AJAX untuk memuat data, jadi PHP di sini hanya untuk struktur
-    }
 
     $productList = db()->query("SELECT * FROM product ORDER BY product ASC")->fetchAll(PDO::FETCH_ASSOC);
     $customerList = db()->query("SELECT * FROM customer ORDER BY customer ASC")->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +26,7 @@
     <script>
         const base_url = "<?= $site_root ?>";
         const productData = <?= json_encode($productList) ?>;
-        const salesId = <?= $id ?>; // Kirim ID penjualan ke JavaScript
+        const salesId = <?= $id ?>;
     </script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
@@ -44,6 +36,11 @@
         .header-row, .row_line { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
         .header-row span { font-weight: bold; flex: 1; text-align: center; }
         .readonly { background-color: #e9ecef; }
+        @media print {
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
+            #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
     </style>
 </head>
 
@@ -54,7 +51,7 @@
             <input type="hidden" name="id" id="id" value="<?= $id ?>">
             
             <fieldset id="header" class="border p-3 mb-3">
-                <legend class="w-auto px-2">Header</legend>
+                <legend class="w-auto px-2 fs-6">Header</legend>
                 <div class="input-group mb-2">
                     <span class="input-group-text" style="width: 120px;">Tanggal</span>
                     <input type="text" class="form-control" placeholder="DD-MM-YYYY" name="sales_date" id="sales_date">
@@ -71,7 +68,7 @@
             </fieldset>
 
             <fieldset id="detail_section" class="border p-3 mb-3">
-                <legend class="w-auto px-2">Detail Produk</legend>
+                <legend class="w-auto px-2 fs-6">Detail Produk</legend>
                 <div class="header-row d-none d-md-flex">
                     <span style="flex: 3;">Produk</span>
                     <span style="flex: 2;">SKU</span>
@@ -95,7 +92,7 @@
                             <tr>
                                 <th>Diskon (%)</th>
                                 <td class="d-flex justify-content-end">
-                                    <input type="number" id="discount_percent" class="form-control" style="width: 80px;" value="0">
+                                    <input type="number" id="discount_percent" name="discount_percent" class="form-control" style="width: 80px;" value="0">
                                 </td>
                             </tr>
                             <tr>
@@ -136,11 +133,36 @@
                     <h5 class="modal-title">Print Preview</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="print_area">
+                <div class="modal-body">
+                    <div id="print-area">
+                        <h4 class="text-center">Nota Penjualan</h4>
+                        <hr>
+                        <p>
+                            <strong>Tanggal:</strong> <span id="preview_date"></span><br>
+                            <strong>Customer:</strong> <span id="preview_customer"></span>
+                        </p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>SKU</th>
+                                    <th class="text-end">Harga</th>
+                                    <th>UOM</th>
+                                    <th class="text-end">Qty</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="preview_detail"></tbody>
+                            <tfoot id="preview_summary">
+                            </tfoot>
+                        </table>
                     </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" onclick="window.print()">Cetak</button>
+                    <button type="button" class="btn btn-primary" onclick="printInvoice()">
+                        <i class="fas fa-print"></i> Cetak
+                    </button>
                 </div>
             </div>
         </div>

@@ -29,24 +29,22 @@ function loadExistingData(id) {
             if (response.response === 1) {
                 const { header, details } = response.data;
                 
-                // Isi data header
                 $('#sales_date').val(formatDate(header.sales_date));
                 $('#customer').val(header.id_customer);
-                $('#discount_percent').val(header.discount_percent || 0);
+                
+                // Karena kita tidak menyimpan diskon, set ke 0 saat edit
+                $('#discount_percent').val(0); 
 
-                // Kosongkan kontainer detail sebelum mengisi
                 $('#detail_container').empty();
 
-                // Isi data detail
                 details.forEach(item => {
-                    const row = generateRow(); // Buat baris baru
+                    const row = generateRow();
                     row.find('.product_select').val(item.id_product);
-                    updateRowData(row, item.id_product); // Update SKU, UOM, dll.
+                    updateRowData(row, item.id_product, false); // Jangan fokus saat memuat data
                     row.find('.price').val(item.price);
                     row.find('.quantity').val(item.qty);
                 });
 
-                // Tambah satu baris kosong di akhir untuk entri baru
                 generateRow();
                 updateSummary();
             } else {
@@ -59,7 +57,6 @@ function loadExistingData(id) {
     });
 }
 
-// Fungsi untuk membuat baris baru
 function generateRow() {
     const productOptions = `<option value="">Pilih Produk</option>` +
         productData.map(p => `<option value="${p.id}">${p.product}</option>`).join('');
@@ -72,15 +69,14 @@ function generateRow() {
             <input type="text" name="uom[]" class="uom form-control readonly" style="flex: 1;" readonly>
             <input type="number" name="quantity[]" class="quantity form-control" style="flex: 1;">
             <input type="text" name="total[]" class="total form-control readonly" style="flex: 1.5;" readonly>
-            <button type="button" class="btn btn-danger btn_delete"><i class="fas fa-trash"></i></button>
+            <button type="button" class="btn btn-danger btn-sm btn_delete"><i class="fas fa-trash"></i></button>
         </div>
     `);
 
     $("#detail_container").append(row);
-    return row; // Kembalikan elemen baris yang baru dibuat
+    return row;
 }
 
-// Event listener untuk tombol simpan
 $('#salesForm').on('submit', function(e) {
     e.preventDefault();
     
@@ -113,7 +109,7 @@ $('#salesForm').on('submit', function(e) {
         data: {
             form: formData,
             details: salesDetails,
-            action: 'updateData' // Aksi ini akan menangani create dan update
+            action: 'updateData'
         },
         success: function(result) {
             if (result.response === 1) {
@@ -129,7 +125,6 @@ $('#salesForm').on('submit', function(e) {
     });
 });
 
-// Event listener lainnya (pemilihan produk, input harga/qty, hapus baris, dll.)
 $(document).on("change", ".product_select", function () {
     const row = $(this).closest(".row_line");
     updateRowData(row, $(this).val());
@@ -156,15 +151,16 @@ $(document).on("blur", ".quantity", function () {
     }
 });
 
-// Fungsi pembantu
-function updateRowData(row, productID) {
+function updateRowData(row, productID, shouldFocus = true) {
     const selectedProductId = parseInt(productID, 10);
     const product = productData.find(p => parseInt(p.id, 10) === selectedProductId);
     if (product) {
         row.find(".sku").val(product.sku);
         row.find(".price").val(product.price);
         row.find(".uom").val(product.uom);
-        row.find(".quantity").focus();
+        if (shouldFocus) {
+            row.find(".quantity").focus();
+        }
     } else {
         row.find(".sku, .price, .uom, .total, .quantity").val("");
     }
@@ -181,14 +177,14 @@ function updateTotal(row) {
 
 function updateSummary() {
     let subtotal = 0;
-    $('.total').each(function () {
+    $('#detail_container .total').each(function () {
         subtotal += parseFloat($(this).val().replace(/\./g, '').replace(',', '.')) || 0;
     });
 
     const discountPercent = parseFloat($("#discount_percent").val()) || 0;
     const discountValue = subtotal * (discountPercent / 100);
     const dpp = subtotal - discountValue;
-    const tax = dpp * 0.11; // PPN 11%
+    const tax = dpp * 0.11;
     const grandTotal = dpp + tax;
 
     $("#subtotal_value").text(formatNumber(subtotal));
@@ -197,11 +193,67 @@ function updateSummary() {
     $("#grand_total").text(formatNumber(grandTotal));
 }
 
+function showPreview() {
+    $('#preview_date').text($('#sales_date').val());
+    $('#preview_customer').text($('#customer option:selected').text());
+
+    let detailRows = '';
+    $('.row_line').each(function() {
+        const row = $(this);
+        const productId = row.find('.product_select').val();
+        const quantity = parseFloat(row.find('.quantity').val()) || 0;
+
+        if (productId && quantity > 0) {
+            detailRows += `
+                <tr>
+                    <td>${row.find('.product_select option:selected').text()}</td>
+                    <td>${row.find('.sku').val()}</td>
+                    <td class="text-end">${formatNumber(row.find('.price').val())}</td>
+                    <td>${row.find('.uom').val()}</td>
+                    <td class="text-end">${formatNumber(quantity)}</td>
+                    <td class="text-end">${row.find('.total').val()}</td>
+                </tr>
+            `;
+        }
+    });
+    $('#preview_detail').html(detailRows);
+
+    let summaryRows = `
+        <tr>
+            <th colspan="5" class="text-end">Sub Total</th>
+            <td class="text-end">${$('#subtotal_value').text()}</td>
+        </tr>
+        <tr>
+            <th colspan="5" class="text-end">Diskon (${$('#discount_percent').val()}%)</th>
+            <td class="text-end">${$('#discount_value').text()}</td>
+        </tr>
+        <tr>
+            <th colspan="5" class="text-end">Pajak (11%)</th>
+            <td class="text-end">${$('#tax_value').text()}</td>
+        </tr>
+        <tr>
+            <th colspan="5" class="text-end">Total Bayar</th>
+            <td class="text-end h5">${$('#grand_total').text()}</td>
+        </tr>
+    `;
+    $('#preview_summary').html(summaryRows);
+}
+
+function printInvoice() {
+    window.print();
+}
+
+$('#btn_preview').on('click', function(e) {
+    e.preventDefault();
+    showPreview();
+});
+
 function formatNumber(value) {
-    return parseFloat(value || 0).toLocaleString("id-ID");
+    return (parseFloat(value) || 0).toLocaleString("id-ID");
 }
 
 function formatDate(dateString) {
+    if (!dateString) return "";
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
