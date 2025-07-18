@@ -15,21 +15,21 @@
     <div class="row">
       <div class="col-md-4">
         <div class="info-card text-center">
-          <div class="icon"><i class="fas fa-user-plus"></i></div>
+          <img src="assets/img/icon-form.png" alt="Isi Formulir" class="info-card-icon mb-3">
           <h4>1. Isi Formulir</h4>
           <p>Lengkapi formulir pendaftaran online dengan data yang valid.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="info-card text-center">
-          <div class="icon"><i class="fas fa-file-invoice"></i></div>
+          <img src="assets/img/icon-verify.png" alt="Verifikasi Data" class="info-card-icon mb-3">
           <h4>2. Verifikasi Data</h4>
           <p>Tim kami akan memverifikasi data yang telah Anda kirimkan.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="info-card text-center">
-          <div class="icon"><i class="fas fa-bullhorn"></i></div>
+          <img src="assets/img/icon-announce.svg" alt="Pengumuman" class="info-card-icon mb-3">
           <h4>3. Pengumuman</h4>
           <p>Hasil seleksi akan diumumkan langsung melalui portal PPDB ini.</p>
         </div>
