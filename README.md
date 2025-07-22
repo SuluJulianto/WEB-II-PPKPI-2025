@@ -17,10 +17,10 @@ Pelatihan berlangsung dari **19 Mei hingga 15 Agustus 2025** selama **360 jam pe
 
 Materi yang dipelajari meliputi:
 - HTML5 & CSS3  
-- JavaScript dasar  
-- PHP (CRUD dan pembuatan toko sederhana)  
-- Python dasar  
-- SQL dasar
+- JavaScript  
+- PHP 
+- Python 
+- SQL
 
 ---
 
@@ -32,10 +32,10 @@ The program ran from **May 19 to August 15, 2025**, for a total of **360 instruc
 
 Technologies and concepts covered:
 - HTML5 & CSS3  
-- Basic JavaScript  
-- PHP (CRUD and mini-store project)  
-- Introductory Python scripting  
-- Basic SQL queries
+- JavaScript  
+- PHP  
+- Python  
+- SQL
 
 ---
 
