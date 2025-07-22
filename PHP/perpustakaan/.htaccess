@@ -1,0 +1,8 @@
+# Mematikan fitur redirect otomatis server yang menyebabkan error
+DirectorySlash Off
+
+# Memberitahu browser tipe file CSS yang benar
+AddType text/css .css
+
+# Menonaktifkan fitur lain yang bisa mengganggu path file
+Options -MultiViews
