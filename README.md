@@ -3,7 +3,7 @@
 **This repository contains study materials and project assignments completed during the Web Programming Bootcamp at PPKPI Jakarta (Pusat Pelatihan Kerja Pengembangan Industri), a government-run vocational training center.**
 
 ![Bootcamp](https://img.shields.io/badge/Bootcamp-Web%20Development-blue)
-![Hours](https://img.shields.io/badge/Hours-360h-orange)
+![Hours](https://img.shields.io/badge/Hours-480h-orange)
 ![Location](https://img.shields.io/badge/Location-Jakarta-green)
 ![Status](https://img.shields.io/badge/Year-2025-lightgrey)
 
