@@ -1,11 +1,17 @@
 <?php
+// /admin/admin_manajemen.php
+
 session_start();
-// Hanya superadmin yang bisa mengakses halaman ini
-if($_SESSION['status']!="login" || $_SESSION['role'] != 'superadmin'){
+if(!isset($_SESSION['status']) || $_SESSION['status'] != "login"){
+    header("location:../login.php?pesan=belum_login");
+    exit;
+}
+// Hanya superadmin yang bisa mengakses
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'superadmin'){
     header("location:dashboard.php?pesan=dilarang");
     exit;
 }
-include 'koneksi.php';
+require_once '../core/koneksi.php';
 $result = mysqli_query($koneksi, "SELECT id, username, role FROM admin");
 ?>
 <!DOCTYPE html>
@@ -13,18 +19,18 @@ $result = mysqli_query($koneksi, "SELECT id, username, role FROM admin");
 <head>
     <meta charset="utf-8">
     <title>Manajemen Admin</title>
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
     <div id="wrapper">
-        <?php include 'sidebar.php'; ?>
+        <?php include '../templates/sidebar.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
                 <div class="container-fluid">
                     <h1 class="h3 mb-2 text-gray-800">Manajemen Pengguna Admin</h1>
-                    <p class="mb-4">Di sini Anda bisa mengelola siapa saja yang dapat mengakses panel admin.</p>
+                    <p class="mb-4">Halaman ini hanya dapat diakses oleh Superadmin.</p>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Daftar Admin</h6></div>
                         <div class="card-body">
@@ -46,7 +52,7 @@ $result = mysqli_query($koneksi, "SELECT id, username, role FROM admin");
                     </div>
                 </div>
             </div>
-            <footer class="sticky-footer bg-white"><div class="container my-auto"><div class="copyright text-center my-auto"><span>Copyright &copy; Your Website 2024</span></div></div></footer>
+            <footer class="sticky-footer bg-white"><div class="container my-auto"><div class="copyright text-center my-auto"><span>Copyright &copy; Toko Elektronik 2025</span></div></div></footer>
         </div>
     </div>
 </body>

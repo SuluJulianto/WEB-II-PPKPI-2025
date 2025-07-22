@@ -1,9 +1,12 @@
 <?php 
+// /admin/penjualan_catat.php
+
 session_start();
-if($_SESSION['status']!="login"){
-    header("location:login.php?pesan=belum_login");
+if(!isset($_SESSION['status']) || $_SESSION['status']!="login"){
+    header("location:../login.php?pesan=belum_login");
+    exit;
 }
-include 'koneksi.php';
+require_once '../core/koneksi.php';
 $pesan = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -11,57 +14,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jumlah_terjual = $_POST['jumlah_terjual'];
 
     if (!empty($id_produk) && !empty($jumlah_terjual) && $jumlah_terjual > 0) {
-        // Ambil harga dan stok produk
+        // Logika pengecekan stok, insert, dan update (tidak ada perubahan)
         $stmt_produk = mysqli_prepare($koneksi, "SELECT harga, stok FROM produk WHERE id = ?");
         mysqli_stmt_bind_param($stmt_produk, "i", $id_produk);
         mysqli_stmt_execute($stmt_produk);
-        $result_produk = mysqli_stmt_get_result($stmt_produk);
-        $data_produk = mysqli_fetch_assoc($result_produk);
+        $data_produk = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt_produk));
         
-        $harga_satuan = $data_produk['harga'];
-        $stok_saat_ini = $data_produk['stok'];
+        if ($data_produk && $data_produk['stok'] >= $jumlah_terjual) {
+            $total_harga = $data_produk['harga'] * $jumlah_terjual;
 
-        // ## PENGECEKAN STOK ##
-        if ($stok_saat_ini >= $jumlah_terjual) {
-            $total_harga = $harga_satuan * $jumlah_terjual;
-
-            // Masukkan data ke tabel penjualan
             $stmt_insert = mysqli_prepare($koneksi, "INSERT INTO tabel_penjualan (id_produk, jumlah_terjual, total_harga) VALUES (?, ?, ?)");
             mysqli_stmt_bind_param($stmt_insert, "iid", $id_produk, $jumlah_terjual, $total_harga);
             
             if(mysqli_stmt_execute($stmt_insert)) {
-                // ## UPDATE STOK ##
-                $stok_baru = $stok_saat_ini - $jumlah_terjual;
+                $stok_baru = $data_produk['stok'] - $jumlah_terjual;
                 $stmt_update = mysqli_prepare($koneksi, "UPDATE produk SET stok = ? WHERE id = ?");
                 mysqli_stmt_bind_param($stmt_update, "ii", $stok_baru, $id_produk);
                 mysqli_stmt_execute($stmt_update);
-
-                $pesan = "<div class='alert alert-success'>Penjualan berhasil dicatat dan stok telah diperbarui!</div>";
+                $pesan = "<div class='alert alert-success'>Penjualan berhasil dicatat!</div>";
             } else {
-                $pesan = "<div class='alert alert-danger'>Gagal mencatat penjualan: " . mysqli_error($koneksi) . "</div>";
+                $pesan = "<div class='alert alert-danger'>Gagal mencatat penjualan.</div>";
             }
         } else {
-            // Jika stok tidak mencukupi
-            $pesan = "<div class='alert alert-danger'>Gagal! Stok produk tidak mencukupi. Sisa stok: $stok_saat_ini</div>";
+            $pesan = "<div class='alert alert-danger'>Gagal! Stok produk tidak mencukupi.</div>";
         }
     } else {
         $pesan = "<div class='alert alert-warning'>Harap pilih produk dan masukkan jumlah yang valid.</div>";
     }
 }
-$query_semua_produk = "SELECT id, produk, stok FROM produk ORDER BY produk ASC";
-$result_semua_produk = mysqli_query($koneksi, $query_semua_produk);
+$result_semua_produk = mysqli_query($koneksi, "SELECT id, produk, stok FROM produk ORDER BY produk ASC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tambah Penjualan</title>
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <title>Catat Penjualan</title>
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
     <div id="wrapper">
-        <?php include 'sidebar.php'; ?>
+        <?php include '../templates/sidebar.php'; ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
@@ -71,7 +64,7 @@ $result_semua_produk = mysqli_query($koneksi, $query_semua_produk);
                         <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Formulir Penjualan</h6></div>
                         <div class="card-body">
                             <?php echo $pesan; ?>
-                            <form method="POST" action="tambah_penjualan.php">
+                            <form method="POST" action="">
                                 <div class="form-group">
                                     <label for="id_produk">Pilih Produk</label>
                                     <select class="form-control" id="id_produk" name="id_produk" required>
@@ -93,9 +86,7 @@ $result_semua_produk = mysqli_query($koneksi, $query_semua_produk);
                     </div>
                 </div>
             </div>
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto"><div class="copyright text-center my-auto"><span>Copyright &copy; Your Website 2024</span></div></div>
-            </footer>
+            <footer class="sticky-footer bg-white"><div class="container my-auto"><div class="copyright text-center my-auto"><span>Copyright &copy; Toko Elektronik 2025</span></div></div></footer>
         </div>
     </div>
 </body>
