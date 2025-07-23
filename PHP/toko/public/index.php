@@ -20,6 +20,7 @@ if (!isset($_SESSION["dir_root"])) {
 <body>
     <a href="tabel.php">Tabel</a>
     <a href="pageSales.php">Sales</a>
+    <a href="purchase.php">Purchase</a>
 </body>
 
 </html>

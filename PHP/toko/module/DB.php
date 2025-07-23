@@ -21,19 +21,22 @@ class DB
         ];
 
         try {
-            self::$pdo = new \PDO($dsn, $db_user, $db_pass, $opt);
+            // Cek jika koneksi belum ada, baru buat koneksi
+            if (!self::$pdo) {
+                self::$pdo = new \PDO($dsn, $db_user, $db_pass, $opt);
+            }
         } catch (\PDOException $e) {
             die("Koneksi gagal : " . $e->getMessage());
         }
+
+        // TAMBAHKAN BARIS INI: Mengembalikan objek koneksi
+        return self::$pdo;
     }
 
     public static function query($sql, $params = [])
     {
-        if (!self::$pdo) {
-            self::connect();
-        }
-
-        $stmt = self::$pdo->prepare($sql);
+        // Panggil connect() untuk memastikan $pdo sudah terisi
+        $stmt = self::connect()->prepare($sql);
         $stmt->execute($params);
         return $stmt;
     }
