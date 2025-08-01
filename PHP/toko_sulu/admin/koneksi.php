@@ -7,5 +7,5 @@ $host_database = "db_sulu";
 $koneksi = mysqli_connect($host_koneksi, $host_username, $host_password, $host_database);
 // jika koneksi gagal
 if (!$koneksi) {
-    echo "duar koneksi gagal";
+    mysqli_connect_error();
 }

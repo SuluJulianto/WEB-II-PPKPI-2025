@@ -6,7 +6,7 @@ $edit = isset($_GET['edit']) ? $_GET['edit'] : '';
 $rowEdit = [];
 
 if ($edit) {
-    $query    = mysqli_query($koneksi, "SELECT * FROM catogories WHERE id='$edit'");
+    $query    = mysqli_query($koneksi, "SELECT * FROM categories WHERE id='$edit'");
     $rowEdit  = mysqli_fetch_assoc($query);
 }
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category_slug = strtolower(str_replace(' ', '-', $category_name));
 
     if ($edit) {
-        $query = "UPDATE catogories SET 
+        $query = "UPDATE categories SET 
                     category_name='$category_name',
                     category_slug='$category_slug',
                     description='$description' 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("location:kategori.php?ubah=berhasil");
         }
     } else {
-        $query = "INSERT INTO catogories (category_name, category_slug, description) 
+        $query = "INSERT INTO categories (category_name, category_slug, description) 
                   VALUES ('$category_name','$category_slug','$description')";
         $insert = mysqli_query($koneksi, $query);
         if ($insert) {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
-    $delete = mysqli_query($koneksi, "DELETE FROM catogories WHERE id='$delete_id'");
+    $delete = mysqli_query($koneksi, "DELETE FROM categories WHERE id='$delete_id'");
     if ($delete) {
         header("location:kategori.php?hapus=berhasil");
     }

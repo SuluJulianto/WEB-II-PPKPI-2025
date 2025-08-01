@@ -2,7 +2,9 @@
 session_start();
 include 'koneksi.php';
 
-$query = mysqli_query($koneksi, "SELECT * FROM users ORDER BY id DESC");
+$query = mysqli_query($koneksi, "SELECT categories.category_name, products.* 
+ FROM products  LEFT JOIN categories ON categories.id = products.id_category ORDER BY 
+ products.id DESC");
 $rows  = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -42,7 +44,7 @@ $rows  = mysqli_fetch_all($query, MYSQLI_ASSOC);
                     <div class="card">
                         <div class="card-body">
                             <div align="right" class="mb-3">
-                                <a href="tambah-user.php" class="btn btn-primary">Tambah</a>
+                                <a href="tambah-produk.php" class="btn btn-primary">Tambah</a>
                             </div>
                             <?php if (isset($_GET['hapus'])) { ?>
                                 <div class="alert alert-primary" role="alert">
@@ -59,8 +61,10 @@ $rows  = mysqli_fetch_all($query, MYSQLI_ASSOC);
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
+                                        <th>Kategori</th>
+                                        <th>Nama Produk</th>
+                                        <th>Harga</th>
+                                        <th>Foto</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -69,11 +73,13 @@ $rows  = mysqli_fetch_all($query, MYSQLI_ASSOC);
                                     foreach ($rows as $key => $row): ?>
                                         <tr>
                                             <td><?php echo $key + 1 ?></td>
-                                            <td><?php echo $row['name'] ?></td>
-                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo $row['category_name'] ?></td>
+                                            <td><?php echo $row['product_name'] ?></td>
+                                            <td><?php echo "Rp." . number_format($row['product_price'])  ?></td>
+                                            <td><img width="100" src="uploads/<?php echo $row['product_photo'] ?>" alt=""></td>
                                             <td>
-                                                <a href="tambah-user.php?edit=<?php echo $row['id'] ?>" class="btn btn-success btn-sm">Edit</a>
-                                                <a href="tambah-user.php?delete=<?php echo $row['id'] ?>"
+                                                <a href="tambah-produk.php?edit=<?php echo $row['id'] ?>" class="btn btn-success btn-sm">Edit</a>
+                                                <a href="tambah-produk.php?delete=<?php echo $row['id'] ?>"
                                                     onclick="return confirm('Apakah anda yakin??')"
                                                     class="btn btn-danger btn-sm">Hapus</a>
                                             </td>

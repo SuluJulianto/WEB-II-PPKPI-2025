@@ -81,7 +81,7 @@
               <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Produk:</h6>
                   <a class="collapse-item" href="produk.php">Produk</a>
-                  <a class="collapse-item" href="kategori.php">Kategori Produk</a>
+                  <a class="collapse-item" href="register.html">Kategori Produk</a>
                   <div class="collapse-divider"></div>
                   <h6 class="collapse-header">Pengguna:</h6>
                   <a class="collapse-item" href="user.php">Pengguna</a>

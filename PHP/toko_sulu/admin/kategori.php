@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'koneksi.php';
-$query = mysqli_query($koneksi, "SELECT * FROM catogories ORDER BY id DESC");
+$query = mysqli_query($koneksi, "SELECT * FROM categories ORDER BY id DESC");
 $rows  = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
