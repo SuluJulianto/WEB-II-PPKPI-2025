@@ -1,0 +1,275 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+:root {
+    --primary-color: #3498db; 
+    --primary-hover: #2980b9; 
+    --dark-color: #2c3e50;    
+    --light-color: #ecf0f1;   
+    --grey-color: #bdc3c7;
+    --background-color: #f4f7f6;
+    --danger-color: #e74c3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: #34495e;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/* --- Form Login & Registrasi --- */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.auth-form h2 i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.auth-form .switch-form {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 12px 12px 40px; /* Padding untuk ikon */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group i {
+    position: absolute;
+    left: 15px;
+    top: 42px;
+    color: var(--grey-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Pesan Error & Sukses */
+.error-box, .success-box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+}
+.error-box { background-color: var(--danger-color); }
+.success-box { background-color: var(--primary-color); }
+.error-box p, .success-box p { margin: 0; }
+
+/* --- Layout Utama Dashboard & Profil --- */
+.dashboard-wrapper {
+    display: flex;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    min-height: 100vh;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(236, 240, 241, 0.2);
+}
+
+.sidebar-header h2 {
+    font-weight: 600;
+}
+.sidebar-header h2 i {
+    color: var(--primary-color);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: var(--light-color);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+.sidebar-nav li a.active, .sidebar-nav li a:hover {
+    background-color: var(--primary-color);
+}
+
+.sidebar-nav li a i {
+    margin-right: 15px;
+    width: 20px; /* Agar ikon sejajar */
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 220px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.main-content {
+    margin-left: 260px; /* Sama dengan lebar sidebar */
+    width: calc(100% - 260px);
+    padding: 30px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.page-header p {
+    color: #7f8c8d;
+}
+
+/* --- Tabel Pengguna --- */
+.content-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.table-container { overflow-x: auto; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+thead th {
+    border-bottom: 2px solid #e0e0e0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+tbody tr:last-child {
+    border-bottom: none;
+}
+tbody tr:hover { 
+    background-color: #f9f9f9; 
+}
+.avatar-sm {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+.username-text { font-weight: 600; }
+.email-text { font-size: 14px; color: #7f8c8d; }
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.status-dot.online { background-color: var(--primary-color); }
+.status-dot.offline { background-color: var(--grey-color); }
+
+/* --- Halaman Profil --- */
+.profile-form .form-group {
+    max-width: 600px;
+}
+.profile-form .profile-avatar {
+    margin-bottom: 30px;
+}
+.profile-avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
