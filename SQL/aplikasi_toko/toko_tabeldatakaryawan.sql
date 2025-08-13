@@ -18,29 +18,35 @@ USE `toko`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `promo`
+-- Table structure for table `tabeldatakaryawan`
 --
 
-DROP TABLE IF EXISTS `promo`;
+DROP TABLE IF EXISTS `tabeldatakaryawan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `promo` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `promo` varchar(45) DEFAULT NULL,
-  `promo_first` datetime DEFAULT NULL,
-  `promo_last` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `promo_UNIQUE` (`promo`)
+CREATE TABLE `tabeldatakaryawan` (
+  `NIP` int NOT NULL,
+  `Nama` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Role` enum('Manager','Admin','Staf Gudang') NOT NULL,
+  `Avatar` varchar(255) NOT NULL DEFAULT 'default.jpg',
+  `Status` enum('online','offline') NOT NULL DEFAULT 'offline',
+  `Tgl_Registrasi` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Last_Login` datetime DEFAULT NULL,
+  `Alamat` tinytext,
+  PRIMARY KEY (`NIP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `promo`
+-- Dumping data for table `tabeldatakaryawan`
 --
 
-LOCK TABLES `promo` WRITE;
-/*!40000 ALTER TABLE `promo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `promo` ENABLE KEYS */;
+LOCK TABLES `tabeldatakaryawan` WRITE;
+/*!40000 ALTER TABLE `tabeldatakaryawan` DISABLE KEYS */;
+INSERT INTO `tabeldatakaryawan` VALUES (101,'Wowo','manager@toko.com','$2y$10$j4kqaePEcFtJkgdiewNovun.xlAVRuLpwtUbbAVWVM1cCt6E1xiO.','Manager','default.jpg','offline','2025-08-13 11:04:04',NULL,NULL),(102,'wido','admin@toko.com','$2y$10$bx/cp7LNsdDvp1OzI02Xv.QMjp6zTdWhZOLWaOpz5EY6cvFhlJHjS','Admin','default.jpg','offline','2025-08-13 11:09:14',NULL,NULL),(103,'Tom','staf@toko.com','$2y$10$u9i5ic2jgQxaYPsik0ekGefs6DShmOW/RtUR4h8v2agde5IZdomKq','Staf Gudang','default.jpg','offline','2025-08-13 11:09:42',NULL,NULL);
+/*!40000 ALTER TABLE `tabeldatakaryawan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-13 14:21:16
+-- Dump completed on 2025-08-13 14:54:52

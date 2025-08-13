@@ -18,28 +18,29 @@ USE `toko`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `promo_detail`
+-- Table structure for table `promo`
 --
 
-DROP TABLE IF EXISTS `promo_detail`;
+DROP TABLE IF EXISTS `promo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `promo_detail` (
+CREATE TABLE `promo` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_promo` int NOT NULL,
-  `id_product` int NOT NULL,
-  `disc` decimal(4,2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `promo` varchar(45) DEFAULT NULL,
+  `promo_first` datetime DEFAULT NULL,
+  `promo_last` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `promo_UNIQUE` (`promo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `promo_detail`
+-- Dumping data for table `promo`
 --
 
-LOCK TABLES `promo_detail` WRITE;
-/*!40000 ALTER TABLE `promo_detail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `promo_detail` ENABLE KEYS */;
+LOCK TABLES `promo` WRITE;
+/*!40000 ALTER TABLE `promo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `promo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-13 14:21:17
+-- Dump completed on 2025-08-13 14:54:51

@@ -18,35 +18,29 @@ USE `toko`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tabeldatakaryawan`
+-- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `tabeldatakaryawan`;
+DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tabeldatakaryawan` (
-  `NIP` int NOT NULL,
-  `Nama` varchar(50) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `Password` varchar(255) NOT NULL,
-  `Role` enum('Manager','Admin','Staf Gudang') NOT NULL,
-  `Avatar` varchar(255) NOT NULL DEFAULT 'default.jpg',
-  `Status` enum('online','offline') NOT NULL DEFAULT 'offline',
-  `Tgl_Registrasi` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Last_Login` datetime DEFAULT NULL,
-  `Alamat` tinytext,
-  PRIMARY KEY (`NIP`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `product` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sku` char(10) NOT NULL,
+  `product` varchar(45) NOT NULL,
+  `uom` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tabeldatakaryawan`
+-- Dumping data for table `product`
 --
 
-LOCK TABLES `tabeldatakaryawan` WRITE;
-/*!40000 ALTER TABLE `tabeldatakaryawan` DISABLE KEYS */;
-INSERT INTO `tabeldatakaryawan` VALUES (101,'Wowo','manager@toko.com','$2y$10$j4kqaePEcFtJkgdiewNovun.xlAVRuLpwtUbbAVWVM1cCt6E1xiO.','Manager','default.jpg','offline','2025-08-13 11:04:04',NULL,NULL),(102,'wido','admin@toko.com','$2y$10$bx/cp7LNsdDvp1OzI02Xv.QMjp6zTdWhZOLWaOpz5EY6cvFhlJHjS','Admin','default.jpg','offline','2025-08-13 11:09:14',NULL,NULL),(103,'Tom','staf@toko.com','$2y$10$u9i5ic2jgQxaYPsik0ekGefs6DShmOW/RtUR4h8v2agde5IZdomKq','Staf Gudang','default.jpg','offline','2025-08-13 11:09:42',NULL,NULL);
-/*!40000 ALTER TABLE `tabeldatakaryawan` ENABLE KEYS */;
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (2,'10001','Mouse','1 Box'),(3,'10002','Keyboard','1 Box');
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-13 14:21:17
+-- Dump completed on 2025-08-13 14:54:52
