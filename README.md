@@ -13,7 +13,7 @@
 
 Repositori ini adalah arsip pembelajaran dan tugas proyek selama mengikuti pelatihan **Web Programming Bootcamp Angkatan II Tahun 2025** yang diselenggarakan oleh **PPKPI (Pusat Pelatihan Kerja Pengembangan Industri)**, sebuah lembaga resmi milik Pemerintah Provinsi DKI Jakarta.
 
-Pelatihan berlangsung dari **19 Mei hingga 15 Agustus 2025** selama **360 jam pelajaran** (Senin–Jumat, kecuali hari libur). Program ini bertujuan mencetak tenaga kerja yang kompeten dan siap kerja di industri digital, khususnya dalam bidang pemrograman web.
+Pelatihan berlangsung dari **19 Mei hingga 20 Agustus 2025** selama **480 jam pelajaran** (Senin–Jumat, kecuali hari libur). Program ini bertujuan mencetak tenaga kerja yang kompeten dan siap kerja di industri digital, khususnya dalam bidang pemrograman web.
 
 Materi yang dipelajari meliputi:
 - HTML5 & CSS3  
@@ -28,7 +28,7 @@ Materi yang dipelajari meliputi:
 
 This repository documents my learning journey and project assignments during the **2025 Web Programming Bootcamp (Batch II)** at **PPKPI (Center for Industrial Development Vocational Training)**, managed by the Jakarta Provincial Government.
 
-The program ran from **May 19 to August 15, 2025**, for a total of **360 instructional hours**, held every **weekday (Monday to Friday, excluding national holidays)**. The bootcamp aimed to equip participants with practical skills for real-world web development jobs.
+The program ran from **May 19 to August 20, 2025**, for a total of **480 instructional hours**, held every **weekday (Monday to Friday, excluding national holidays)**. The bootcamp aimed to equip participants with practical skills for real-world web development jobs.
 
 Technologies and concepts covered:
 - HTML5 & CSS3  
