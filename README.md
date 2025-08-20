@@ -1,5 +1,12 @@
 # 📚 Web Programming Bootcamp – PPKPI Jakarta (2025)
 
+<p align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Logo_Jakarta.png" alt="Logo DKI Jakarta" width="120" align="left" />
+  <img src="https://ppkpi.jakarta.go.id/assets/img/logo-ppkpi.png" alt="Logo PPKPI" width="120" align="right" />
+</p>
+
+<br clear="both"/>
+
 **This repository contains study materials and project assignments completed during the Web Programming Bootcamp at PPKPI Jakarta (Pusat Pelatihan Kerja Pengembangan Industri), a government-run vocational training center.**
 
 ![Bootcamp](https://img.shields.io/badge/Bootcamp-Web%20Development-blue)
