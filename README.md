@@ -1,4 +1,4 @@
-# 📚 Web Programming Bootcamp – PPKPI Jakarta (2025)
+# 📚 Web Developer Bootcamp – PPKPI Jakarta (2025)
 
 <p align="center">
   <img src="Images/logo-dki500.png" alt="Logo DKI Jakarta" width="120" style="margin-right:20px;"/>
@@ -7,7 +7,7 @@
 
 <br clear="both"/>
 
-**This repository contains study materials and project assignments completed during the Web Programming Bootcamp at PPKPI Jakarta (Pusat Pelatihan Kerja Pengembangan Industri), a government-run vocational training center.**
+**This repository contains study materials and project assignments completed during the Web Developer Bootcamp at PPKPI Jakarta (Pusat Pelatihan Kerja Pengembangan Industri), a government-run vocational training center.**
 
 ![Bootcamp](https://img.shields.io/badge/Bootcamp-Web%20Development-blue)
 ![Hours](https://img.shields.io/badge/Hours-480h-orange)
@@ -18,7 +18,7 @@
 
 ## 📝 Bahasa Indonesia:
 
-Repositori ini adalah arsip pembelajaran dan tugas proyek selama mengikuti pelatihan **Web Programming Bootcamp Angkatan II Tahun 2025** yang diselenggarakan oleh **PPKPI (Pusat Pelatihan Kerja Pengembangan Industri)**, sebuah lembaga resmi milik Pemerintah Provinsi DKI Jakarta.
+Repositori ini adalah arsip pembelajaran dan tugas proyek selama mengikuti pelatihan **Web Developer Bootcamp Angkatan II Tahun 2025** yang diselenggarakan oleh **PPKPI (Pusat Pelatihan Kerja Pengembangan Industri)**, sebuah lembaga resmi milik Pemerintah Provinsi DKI Jakarta.
 
 Pelatihan berlangsung dari **19 Mei hingga 20 Agustus 2025** selama **480 jam pelajaran** (Senin–Jumat, kecuali hari libur). Program ini bertujuan mencetak tenaga kerja yang kompeten dan siap kerja di industri digital, khususnya dalam bidang pemrograman web.
 
@@ -33,7 +33,7 @@ Materi yang dipelajari meliputi:
 
 ## 🗣 English:
 
-This repository documents my learning journey and project assignments during the **2025 Web Programming Bootcamp (Batch II)** at **PPKPI (Center for Industrial Development Vocational Training)**, managed by the Jakarta Provincial Government.
+This repository documents my learning journey and project assignments during the **2025 Web Developer Bootcamp (Batch II)** at **PPKPI (Center for Industrial Development Vocational Training)**, managed by the Jakarta Provincial Government.
 
 The program ran from **May 19 to August 20, 2025**, for a total of **480 instructional hours**, held every **weekday (Monday to Friday, excluding national holidays)**. The bootcamp aimed to equip participants with practical skills for real-world web development jobs.
 
