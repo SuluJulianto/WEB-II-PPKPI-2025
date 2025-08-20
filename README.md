@@ -1,8 +1,8 @@
 # 📚 Web Programming Bootcamp – PPKPI Jakarta (2025)
 
 <p align="center">
-  <img src="images/logo-dki500.png" alt="Logo DKI Jakarta" width="120" align="left" />
-  <img src="LOGO-PPKPI500.png" alt="Logo PPKPI" width="120" align="right" />
+  <img src="Images/logo-dki500.png" alt="Logo DKI Jakarta" width="120" align="left" />
+  <img src="Images/LOGO-PPKPI500.png" alt="Logo PPKPI" width="120" align="right" />
 </p>
 
 <br clear="both"/>
